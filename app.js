@@ -82,7 +82,6 @@ function checkWinner() {
     winnerFound = !!sideWon;
   }
 
-
   //check if a winner was found, or if there's a tie.
   if(winnerFound) {
     console.log("Winner winner chicken dinner!");
@@ -109,15 +108,24 @@ function checkLine(line) {
 }
 
 //event handler declarations
-document.getElementById("cell1").addEventListener("click", setPiece);
-document.getElementById("cell2").addEventListener("click", setPiece);
-document.getElementById("cell3").addEventListener("click", setPiece);
-document.getElementById("cell4").addEventListener("click", setPiece);
-document.getElementById("cell5").addEventListener("click", setPiece);
-document.getElementById("cell6").addEventListener("click", setPiece);
-document.getElementById("cell7").addEventListener("click", setPiece);
-document.getElementById("cell8").addEventListener("click", setPiece);
-document.getElementById("cell9").addEventListener("click", setPiece);
+// document.getElementById("0").addEventListener("click", setPiece);
+// document.getElementById("1").addEventListener("click", setPiece);
+// document.getElementById("2").addEventListener("click", setPiece);
+// document.getElementById("3").addEventListener("click", setPiece);
+// document.getElementById("4").addEventListener("click", setPiece);
+// document.getElementById("5").addEventListener("click", setPiece);
+// document.getElementById("6").addEventListener("click", setPiece);
+// document.getElementById("7").addEventListener("click", setPiece);
+// document.getElementById("8").addEventListener("click", setPiece);
+
+//refactor event handlers for board to use document.body
+let board = document.getElementById('board');
+
+board.addEventListener('click', event => {
+  console.log(event);
+  console.dir(event.target);
+  setPiece(event);
+});
 
 document.getElementById('reset').addEventListener("click",clearBoard);
 
