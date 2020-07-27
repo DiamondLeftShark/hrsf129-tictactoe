@@ -16,19 +16,23 @@ const currentBoard = ['-','-','-',
 //and switch to the next side's turn
 function setPiece(event) {
   console.log("Piece clicked: ", event.target.id);
-  //console.log("Piece clicked");
-  if(xTurn && event.target.innerHTML === '-')  {
+  let position = event.target.id;
+
+  if(xTurn && currentBoard[position] === '-')  {
+    currentBoard[event.target.id] = 'X';
     event.target.innerHTML = 'X';
     piecesPlaced++;
     xTurn = !xTurn;
     checkWinner();
 
-  } else if(event.target.innerHTML === '-'){
+  } else if(currentBoard[position]  === '-'){
+    currentBoard[event.target.id] = 'O';
     event.target.innerHTML = 'O';
     piecesPlaced++;
     xTurn = !xTurn;
     checkWinner();
   }
+  console.log(currentBoard);
 }
 
 //resets board to initial state
@@ -37,8 +41,9 @@ function clearBoard() {
   piecesPlaced = 0;
 
   let cells = document.getElementsByTagName('td');
-  for(let i = 0; i < cells.length; i++){
+  for(let i = 0; i < currentBoard.length; i++){
     cells[i].innerHTML = '-';
+    currentBoard[i] = '-';
   }
 
   //set game to start with player X
@@ -56,17 +61,17 @@ function checkWinner() {
   let sideWon = null;
 
   //check to see if a player has won.
-  let cells = document.getElementsByTagName('td');
-  let boardState = [];
-  for(let i = 0; i < cells.length; i++) {
-    boardState.push(cells[i].innerHTML);
-  }
+  // let cells = document.getElementsByTagName('td');
+  // let boardState = [];
+  // for(let i = 0; i < cells.length; i++) {
+  //   boardState.push(cells[i].innerHTML);
+  // }
   //console.log(boardState);
 
   //check rows (012 / 345 / 678)
   for(let i = 0; i < 9; i+=3) {
     if(sideWon === null) { //only check if a winner has not been found yet
-      let row = boardState[i] + boardState[i+1] + boardState[i+2];
+      let row = currentBoard[i] + currentBoard[i+1] + currentBoard[i+2];
       sideWon = checkLine(row);
       winnerFound = !!sideWon; //if sideWon is not null, winnerFound will be set to true
     }
@@ -75,7 +80,7 @@ function checkWinner() {
   //check columns (036 / 147 / 258)
   for(let i = 0; i < 3; i++) {
     if(sideWon === null) {
-      let column = boardState[i] + boardState[i+3] + boardState[i+6];
+      let column = currentBoard[i] + currentBoard[i+3] + currentBoard[i+6];
       sideWon = checkLine(column);
       winnerFound = !!sideWon;
     }
@@ -83,8 +88,8 @@ function checkWinner() {
 
   //diagonals (048 / 246)
   if(sideWon === null) {
-    let leftDiag = boardState[0] + boardState[4] + boardState[8];
-    let rightDiag = boardState[2] + boardState[4] + boardState[6];
+    let leftDiag = currentBoard[0] + currentBoard[4] + currentBoard[8];
+    let rightDiag = currentBoard[2] + currentBoard[4] + currentBoard[6];
     sideWon = checkLine(leftDiag) || checkLine(rightDiag);
     winnerFound = !!sideWon;
   }
