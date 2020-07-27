@@ -11,10 +11,11 @@ function setPiece(event) {
   console.log("Piece clicked");
   if(xTurn && event.target.innerHTML === '-')  {
     event.target.innerHTML = 'X';
+    xTurn = !xTurn;
   } else if(event.target.innerHTML === '-'){
     event.target.innerHTML = 'O';
+    xTurn = !xTurn;
   }
-  xTurn = !xTurn;
   //check for a winner
   checkWinner();
 }
@@ -28,6 +29,7 @@ function clearBoard() {
   }
   //set game to start with player X
   xTurn = true;
+  document.getElementById('reset').innerHTML = 'Flip the table!';
   console.log("Board reset!");
 }
 
