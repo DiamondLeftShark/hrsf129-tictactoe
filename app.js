@@ -15,7 +15,7 @@ const currentBoard = ['-','-','-',
 //Check if current position is empty (-).  If so, set to the piece of the active player
 //and switch to the next side's turn
 function setPiece(event) {
-  console.log("Piece clicked: ", event.target.id);
+  //console.log("Piece clicked: ", event.target.id);
   let position = event.target.id;
 
   if(xTurn && currentBoard[position] === '-')  {
@@ -134,7 +134,17 @@ function checkLine(line) {
   }
 }
 
-//refactor event handlers for board to use document.body
+//helper function to set player name.  Called by name prompt when page is loaded
+function setName (playerName, playerId) {
+  if(playerId === 1) {
+    document.getElementById('player-1').innerHTML = playerName;
+  }
+  if(playerId === 2) {
+    document.getElementById('player-2').innerHTML = playerName;
+  }
+}
+
+//event handler declarations
 let board = document.getElementById('board');
 
 board.addEventListener('click', event => {
@@ -145,11 +155,14 @@ board.addEventListener('click', event => {
 
 document.getElementById('reset').addEventListener("click",clearBoard);
 
+//alert declarations
+setName(prompt("Enter first player's name", "Player 1"), 1);
+setName(prompt("Enter second player's name", "Player 2"), 2);
+
 console.log("Script loaded.");
 
 
 //OLD SCRIPTS, maintained under this line for reference
-//event handler declarations
 // document.getElementById("0").addEventListener("click", setPiece);
 // document.getElementById("1").addEventListener("click", setPiece);
 // document.getElementById("2").addEventListener("click", setPiece);
