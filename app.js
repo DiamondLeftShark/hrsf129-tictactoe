@@ -46,8 +46,13 @@ function clearBoard() {
     currentBoard[i] = '-';
   }
 
-  //set game to start with player X
-  xTurn = true;
+  //determine who goes first based on winner of last game.  Default to X
+  //if no previous winner.
+  if(lastWinner = 'O') {
+    xTurn = false;
+  } else {
+    xTurn = true;
+  }
   document.getElementById('reset').innerHTML = 'Flip the table!';
   console.log("Board reset!");
 }
