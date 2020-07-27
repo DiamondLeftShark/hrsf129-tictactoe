@@ -2,13 +2,20 @@ console.log("Initializing...");
 
 //global variable declarations
 let xTurn= true;
+let lastWinner = null;
+let xWins = 0;
+let oWins = 0;
 let piecesPlaced = 0;
+const currentBoard = ['-','-','-',
+                      '-','-','-',
+                      '-','-','-'];
 
 //function declarations
 
 //Check if current position is empty (-).  If so, set to the piece of the active player
 //and switch to the next side's turn
 function setPiece(event) {
+  console.log("Piece clicked: ", event.target.id);
   //console.log("Piece clicked");
   if(xTurn && event.target.innerHTML === '-')  {
     event.target.innerHTML = 'X';
