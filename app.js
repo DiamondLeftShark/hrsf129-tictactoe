@@ -9,7 +9,12 @@ const playerPieces = ['X','O'];
 //and switch to the next side's turn
 function setPiece(event) {
   console.log("Piece clicked");
-
+  if(xTurn && event.target.innerHTML === '-')  {
+    event.target.innerHTML = 'X';
+  } else if(event.target.innerHTML === '-'){
+    event.target.innerHTML = 'O';
+  }
+  xTurn = !xTurn;
   //check for a winner
   checkWinner();
 }
