@@ -1,7 +1,7 @@
 console.log("Initializing...");
 
+//global variable declarations
 let xTurn= true;
-const playerPieces = ['X','O'];
 let piecesPlaced = 0;
 
 //function declarations
