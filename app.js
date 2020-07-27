@@ -49,7 +49,6 @@ function checkWinner() {
   let sideWon = null;
 
   //check to see if a player has won.
-  //diagonals (048 / 246)
   let cells = document.getElementsByTagName('td');
   let boardState = [];
   for(let i = 0; i < cells.length; i++) {
@@ -73,6 +72,14 @@ function checkWinner() {
       sideWon = checkLine(column);
       winnerFound = !!sideWon;
     }
+  }
+
+  //diagonals (048 / 246)
+  if(sideWon === null) {
+    let leftDiag = boardState[0] + boardState[4] + boardState[8];
+    let rightDiag = boardState[2] + boardState[4] + boardState[6];
+    sideWon = checkLine(leftDiag) || checkLine(rightDiag);
+    winnerFound = !!sideWon;
   }
 
 
