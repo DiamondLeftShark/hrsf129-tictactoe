@@ -9,7 +9,7 @@ let piecesPlaced = 0;
 //Check if current position is empty (-).  If so, set to the piece of the active player
 //and switch to the next side's turn
 function setPiece(event) {
-  console.log("Piece clicked");
+  //console.log("Piece clicked");
   if(xTurn && event.target.innerHTML === '-')  {
     event.target.innerHTML = 'X';
     piecesPlaced++;
@@ -44,7 +44,7 @@ function clearBoard() {
 //If a player wins, update the reset element with text informing the players who won.
 //If a tie, also inform the users
 function checkWinner() {
-  console.log("Checking for a winner...");
+  //console.log("Checking for a winner...");
   let winnerFound = false;
   let sideWon = null;
 
@@ -54,7 +54,7 @@ function checkWinner() {
   for(let i = 0; i < cells.length; i++) {
     boardState.push(cells[i].innerHTML);
   }
-  console.log(boardState);
+  //console.log(boardState);
 
   //check rows (012 / 345 / 678)
   for(let i = 0; i < 9; i+=3) {
@@ -101,7 +101,7 @@ function checkWinner() {
 //returns the winning side if true, else returns null
 function checkLine(line) {
   if(line === 'XXX' || line === 'OOO') {
-    console.log("Winning line found!");
+    //console.log("Winning line found!");
     return line[0];
   } else {
     return null;
