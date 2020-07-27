@@ -14,13 +14,14 @@ function setPiece(event) {
     event.target.innerHTML = 'X';
     piecesPlaced++;
     xTurn = !xTurn;
+    checkWinner();
+
   } else if(event.target.innerHTML === '-'){
     event.target.innerHTML = 'O';
     piecesPlaced++;
     xTurn = !xTurn;
+    checkWinner();
   }
-  //check for a winner
-  checkWinner();
 }
 
 //resets board to initial state
@@ -32,6 +33,7 @@ function clearBoard() {
   for(let i = 0; i < cells.length; i++){
     cells[i].innerHTML = '-';
   }
+
   //set game to start with player X
   xTurn = true;
   document.getElementById('reset').innerHTML = 'Flip the table!';
@@ -44,19 +46,58 @@ function clearBoard() {
 function checkWinner() {
   console.log("Checking for a winner...");
   let winnerFound = false;
-  let cells = document.getElementsByTagName('td');
-  //check to see if a player has won.  Must check:
-  //rows (123 / 456 / 789)
-  //columns (147 / 258 / 369)
-  //diagonals (159 / 357)
+  let sideWon = null;
 
+  //check to see if a player has won.
+  //diagonals (048 / 246)
+  let cells = document.getElementsByTagName('td');
+  let boardState = [];
+  for(let i = 0; i < cells.length; i++) {
+    boardState.push(cells[i].innerHTML);
+  }
+  console.log(boardState);
+
+  //check rows (012 / 345 / 678)
+  for(let i = 0; i < 9; i+=3) {
+    if(sideWon === null) { //only check if a winner has not been found yet
+      let row = boardState[i] + boardState[i+1] + boardState[i+2];
+      sideWon = checkLine(row);
+      winnerFound = !!sideWon; //if sideWon is not null, winnerFound will be set to true
+    }
+  }
+
+  //check columns (036 / 147 / 258)
+  for(let i = 0; i < 3; i++) {
+    if(sideWon === null) {
+      let column = boardState[i] + boardState[i+3] + boardState[i+6];
+      sideWon = checkLine(column);
+      winnerFound = !!sideWon;
+    }
+  }
+
+
+  //check if a winner was found, or if there's a tie.
   if(winnerFound) {
     console.log("Winner winner chicken dinner!");
+    document.getElementById('reset').innerHTML = `${sideWon} wins!  Play again?`;
+
   } else if (piecesPlaced >= 9) {
     console.log("It's a draw!");
     document.getElementById('reset').innerHTML = "It's a draw!  Play again?";
+
   } else {
     console.log("Keep going...");
+  }
+}
+
+//helper function to check if a given line contains all Xs or Os
+//returns the winning side if true, else returns null
+function checkLine(line) {
+  if(line === 'XXX' || line === 'OOO') {
+    console.log("Winning line found!");
+    return line[0];
+  } else {
+    return null;
   }
 }
 
