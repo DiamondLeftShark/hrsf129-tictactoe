@@ -17,6 +17,10 @@ function setPiece(event) {
 //resets board to initial state
 function clearBoard() {
   //remove all pieces
+  let cells = document.getElementsByTagName('td');
+  for(let i = 0; i < cells.length; i++){
+    cells[i].innerHTML = '-';
+  }
   //set game to start with player X
   xTurn = true;
   console.log("Board reset!");
