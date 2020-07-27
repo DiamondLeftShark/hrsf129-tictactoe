@@ -89,9 +89,19 @@ function checkWinner() {
     winnerFound = !!sideWon;
   }
 
-  //check if a winner was found, or if there's a tie.
+  //check if a winner was found, or if there's a tie.  If win, increment
+  //the correct counter and set lastWinner to the appropriate value
   if(winnerFound) {
     console.log("Winner winner chicken dinner!");
+    lastWinner = sideWon;
+
+    if(sideWon === 'X') {
+      xWins++;
+      document.getElementById('x-score').innerHTML = xWins;
+    } else {
+      oWins++;
+      document.getElementById('o-score').innerHTML = oWins;
+    }
     document.getElementById('reset').innerHTML = `${sideWon} wins!  Play again?`;
 
   } else if (piecesPlaced >= 9) {
@@ -114,6 +124,21 @@ function checkLine(line) {
   }
 }
 
+//refactor event handlers for board to use document.body
+let board = document.getElementById('board');
+
+board.addEventListener('click', event => {
+  //console.log(event);
+  //console.dir(event.target);
+  setPiece(event);
+});
+
+document.getElementById('reset').addEventListener("click",clearBoard);
+
+console.log("Script loaded.");
+
+
+//OLD SCRIPTS, maintained under this line for reference
 //event handler declarations
 // document.getElementById("0").addEventListener("click", setPiece);
 // document.getElementById("1").addEventListener("click", setPiece);
@@ -124,16 +149,3 @@ function checkLine(line) {
 // document.getElementById("6").addEventListener("click", setPiece);
 // document.getElementById("7").addEventListener("click", setPiece);
 // document.getElementById("8").addEventListener("click", setPiece);
-
-//refactor event handlers for board to use document.body
-let board = document.getElementById('board');
-
-board.addEventListener('click', event => {
-  console.log(event);
-  console.dir(event.target);
-  setPiece(event);
-});
-
-document.getElementById('reset').addEventListener("click",clearBoard);
-
-console.log("Script loaded.");
