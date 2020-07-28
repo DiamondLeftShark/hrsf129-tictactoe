@@ -25,6 +25,9 @@ function setPiece(event) {
     event.target.innerHTML = 'X';
     piecesPlaced++;
     xTurn = !xTurn;
+    if(rotateMode) {
+      rotateBoard();
+    }
     checkWinner();
 
   } else if(currentBoard[position]  === '-'){
@@ -32,9 +35,27 @@ function setPiece(event) {
     event.target.innerHTML = 'O';
     piecesPlaced++;
     xTurn = !xTurn;
+    if(rotateMode) {
+      rotateBoard();
+    }
     checkWinner();
   }
   console.log(currentBoard);
+}
+
+//event handler function for rotate mode.  Should only change rotate mode option
+//at the beginning of a new game.
+function setRotateMode () {
+  if(piecesPlaced === 0) {
+    rotateMode = !rotateMode;
+    //if rotate mode is enabled, change text link to indicate the state to the user
+    if(rotateMode) {
+      document.getElementById('rotate').innerHTML ="Rotate mode enabled, watch for falling pieces!";
+    //else, return text link to default value
+    } else {
+      document.getElementById('rotate').innerHTML = "Enable Rotate Mode";
+    }
+  }
 }
 
 //if rotate mode is enabled, rotate board 90 degrees: all pieces
@@ -186,6 +207,7 @@ board.addEventListener('click', event => {
 });
 
 document.getElementById('reset').addEventListener("click",clearBoard);
+document.getElementById('rotate').addEventListener("click", setRotateMode);
 
 //alert declarations
 setName(prompt("Enter first player's name", "Player 1"), 1);
