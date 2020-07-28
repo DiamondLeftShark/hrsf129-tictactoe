@@ -1,6 +1,7 @@
 console.log("Initializing...");
 
 //global variable declarations
+
 let xTurn= true;
 let lastWinner = null;
 let xWins = 0;
