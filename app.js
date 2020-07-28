@@ -101,7 +101,7 @@ function clearBoard() {
 
   //determine who goes first based on winner of last game.  Default to X
   //if no previous winner.
-  if(lastWinner = 'O') {
+  if(lastWinner === 'O') {
     xTurn = false;
   } else {
     xTurn = true;
