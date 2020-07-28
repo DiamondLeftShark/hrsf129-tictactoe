@@ -9,8 +9,8 @@ let oWins = 0;
 let piecesPlaced = 0;
 let rotateMode = false;
 let currentBoard = ['-','-','-',
-                      '-','-','-',
-                      '-','-','-'];
+                    '-','-','-',
+                    '-','-','-'];
 
 //function declarations
 
@@ -119,13 +119,6 @@ function checkWinner() {
   let sideWon = null;
 
   //check to see if a player has won.
-  // let cells = document.getElementsByTagName('td');
-  // let boardState = [];
-  // for(let i = 0; i < cells.length; i++) {
-  //   boardState.push(cells[i].innerHTML);
-  // }
-  //console.log(boardState);
-
   //check rows (012 / 345 / 678)
   for(let i = 0; i < 9; i+=3) {
     if(sideWon === null) { //only check if a winner has not been found yet
