@@ -7,7 +7,8 @@ let lastWinner = null;
 let xWins = 0;
 let oWins = 0;
 let piecesPlaced = 0;
-const currentBoard = ['-','-','-',
+let rotateMode = false;
+let currentBoard = ['-','-','-',
                       '-','-','-',
                       '-','-','-'];
 
@@ -34,6 +35,36 @@ function setPiece(event) {
     checkWinner();
   }
   console.log(currentBoard);
+}
+
+//if rotate mode is enabled, rotate board 90 degrees: all pieces
+//"fall" to the lowest unoccupied position after rotating
+//top row becomes right column
+//middle row becomes middle column
+//bottom row becomes left column
+function rotateBoard() {
+  let topRow = currentBoard[0]+currentBoard[1]+currentBoard[2];
+  let middleRow = currentBoard[3]+currentBoard[4]+currentBoard[5];
+  let bottomRow = currentBoard[6]+currentBoard[7]+currentBoard[8];
+
+  topRow = topRow.replace(/-/gi,'');
+  middleRow = middleRow.replace(/-/gi,'');
+  bottomRow = bottomRow.replace(/-/gi,'');
+
+  topRow = topRow.padStart(3,'-');
+  middleRow = middleRow.padStart(3,'-');
+  bottomRow = bottomRow.padStart(3,'-');
+
+  currentBoard = [bottomRow[0], middleRow[0], topRow[0],
+                  bottomRow[1], middleRow[1], topRow[1],
+                  bottomRow[2], middleRow[2], topRow[2]];
+
+  //after rotating board, update DOM with new board state
+  let cells = document.getElementsByTagName('td');
+  for(let i = 0; i < currentBoard.length; i++){
+    cells[i].innerHTML = currentBoard[i];
+  }
+
 }
 
 //resets board to initial state
